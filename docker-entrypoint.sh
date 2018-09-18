@@ -7,6 +7,16 @@ sed "s/SECRET_KEY.*/SECRET_KEY = '`head /dev/urandom | tr -dc a-f0-9 | head -c 3
 
 sed "s/ROOT_URLCONF.*/ROOT_URLCONF = 'urls'/" settings.py -i
 
+
+
+# sed "s/LANGUAGES.*/ASKBOT_LANGUAGE_MODE = 'user-lang'\nfrom django.utils.translation import ugettext_lazy as _\nLANGUAGES = (('en', 'English'),('ja','japanese'))\nASKBOT_TRANSLATE_URL = False/" settings.py -i
+# sed "s/#'askbot.middleware.locale.LocaleMiddleware',/'django.middleware.locale.LocaleMiddleware',/" settings.py -i
+
+
+echo "import sys" >> settings.py
+echo "reload(sys)" >> settings.py
+echo "sys.setdefaultencoding('UTF8')" >> settings.py
+
 python manage.py makemigrations
 python manage.py migrate --noinput
 python manage.py collectstatic --noinput
